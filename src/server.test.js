@@ -57,6 +57,15 @@ describe('server', () => {
       return expect(dependencies.controllers.init).to.have.been.calledOnce;
     });
 
+    it('returns the created server', () => {
+      const { server, dependencies } = setup();
+      const expected = 'server';
+
+      dependencies.app.listen.returns(expected);
+
+      return expect(server.start()).to.eql(expected);
+    });
+
     describe('when starting the server throws an error', () => {
       it('exits the process', () => {
         const { server, dependencies } = setup();
