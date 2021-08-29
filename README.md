@@ -6,11 +6,14 @@ Tests are run in mochajs using chaijs
 ### Unit
 `npm run test:unit`
 
-**With file watching**
+**With file watching:**
+
 `npm run test:unit:watch`
 
-**Coverage**
+### Coverage
 `npm run test:unit:coverage`
 
 ## Running the app
 `npm start`
+
+Head to [localhost:3000](http://localhost:3000)
