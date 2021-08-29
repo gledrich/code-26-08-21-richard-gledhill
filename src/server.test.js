@@ -72,6 +72,17 @@ describe('server', () => {
       return expect(returnedServer.close).to.have.been.calledOnce;
     });
 
+    it('logs a message', () => {
+      const { server, dependencies } = setup();
+
+      dependencies.app.listen.returns({ close: stub().yields() });
+
+      server.start();
+      server.stop();
+
+      return expect(dependencies.logger.info).to.have.been.calledWithExactly('Successfully shutdown server');
+    });
+
     describe('when the server is not running', () => {
       it('throws an error', () => {
         const { server } = setup();
