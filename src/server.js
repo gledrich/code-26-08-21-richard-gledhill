@@ -1,9 +1,13 @@
-module.exports = ({ app, logger }) => {
+module.exports = ({ app, logger, controllers }) => {
   let server;
 
   return ({
     start: () => {
       try {
+        // Initialise controllers
+        controllers.init();
+
+        // Start the server
         server = app.listen(3000, () => {
           logger.info('Server running on localhost:3000');
         });

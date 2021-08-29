@@ -11,6 +11,9 @@ describe('server', () => {
       logger: {
         info: stub(),
       },
+      controllers: {
+        init: stub(),
+      },
     };
 
     return {
@@ -44,6 +47,14 @@ describe('server', () => {
       server.start();
 
       return expect(dependencies.logger.info).to.have.been.calledWithExactly('Server running on localhost:3000');
+    });
+
+    it('initialises the controllers', () => {
+      const { server, dependencies } = setup();
+
+      server.start();
+
+      return expect(dependencies.controllers.init).to.have.been.calledOnce;
     });
 
     describe('when starting the server throws an error', () => {
