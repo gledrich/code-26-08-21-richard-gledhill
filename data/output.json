@@ -1,0 +1,42 @@
+[{
+  "Gender": "Male",
+  "HeightCm": 171,
+  "WeightKg": 96,
+  "BMI": 56.140350877192986,
+  "BMICategory": "Moderately Obese"
+},
+{
+  "Gender": "Male",
+  "HeightCm": 161,
+  "WeightKg": 85,
+  "BMI": 52.795031055900616,
+  "BMICategory": "Moderately Obese"
+},
+{
+  "Gender": "Male",
+  "HeightCm": 180,
+  "WeightKg": 77,
+  "BMI": 42.77777777777778,
+  "BMICategory": "Normal"
+},
+{
+  "Gender": "Female",
+  "HeightCm": 166,
+  "WeightKg": 62,
+  "BMI": 37.34939759036145,
+  "BMICategory": "Normal"
+},
+{
+  "Gender": "Female",
+  "HeightCm": 150,
+  "WeightKg": 70,
+  "BMI": 46.666666666666664,
+  "BMICategory": "Moderately Obese"
+},
+{
+  "Gender": "Female",
+  "HeightCm": 167,
+  "WeightKg": 82,
+  "BMI": 49.10179640718563,
+  "BMICategory": "Overweight"
+}]
