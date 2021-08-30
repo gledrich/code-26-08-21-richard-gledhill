@@ -49,14 +49,6 @@ module.exports = ({ fs, logger }) => ({
         logger.debug('Processing new chunk...');
 
         for (let currentIndex = 0; currentIndex < data.length; currentIndex += 1) {
-          if (data[previousIndex] !== '{') {
-            previousIndex += 1;
-          }
-
-          if (data[previousIndex] === '{' && data[currentIndex] !== '}') {
-            continue;
-          }
-
           if (data[previousIndex] === '{' && data[currentIndex] === '}') {
             try {
               const parsedPerson = JSON.parse(data.slice(previousIndex, currentIndex + 1));
@@ -79,8 +71,12 @@ module.exports = ({ fs, logger }) => ({
             } catch (err) {
               logger.warn({ err }, 'Failed to parse an item');
             }
-          } else if (currentIndex === chunk.length - 1) {
-            leftOvers = chunk.slice(previousIndex, currentIndex + 1);
+          } else if (data[previousIndex] === '{' && currentIndex === data.length - 1) {
+            leftOvers = data.slice(previousIndex, currentIndex + 1);
+          }
+
+          if (data[previousIndex] === '{' && data[currentIndex] !== '}') {
+            continue;
           }
 
           previousIndex = currentIndex;

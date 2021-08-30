@@ -179,7 +179,9 @@ describe('bmiCalculatorService', () => {
 
       dependencies.fs.createReadStream.returns(Readable.from([
         JSON.stringify(inputData.slice(0, inputData.length / 2)),
-        JSON.stringify(inputData.slice(inputData.length / 2)),
+        // simulate partway through JSON chunk
+        JSON.stringify(inputData.slice(inputData.length / 2)).slice(0, 10),
+        JSON.stringify(inputData.slice(inputData.length / 2)).slice(10),
       ]));
       dependencies.fs.createWriteStream.returns(writeStub);
 
