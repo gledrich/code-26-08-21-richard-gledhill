@@ -11,6 +11,9 @@ describe('controllers', () => {
         readiness: 'readiness',
         liveness: 'liveness',
       },
+      bmiCalculatorController: {
+        calculate: 'calculate',
+      },
     };
 
     return {
@@ -25,8 +28,19 @@ describe('controllers', () => {
 
       controllers.init();
 
-      expect(dependencies.app.use).to.have.been.calledWithExactly('/readiness', dependencies.healthController.readiness);
-      expect(dependencies.app.use).to.have.been.calledWithExactly('/liveness', dependencies.healthController.liveness);
+      expect(dependencies.app.use).to
+        .have.been.calledWithExactly('/readiness', dependencies.healthController.readiness);
+      expect(dependencies.app.use).to
+        .have.been.calledWithExactly('/liveness', dependencies.healthController.liveness);
+    });
+
+    it('initialises the bmi-calculator controllers', () => {
+      const { controllers, dependencies } = setup();
+
+      controllers.init();
+
+      expect(dependencies.app.use).to
+        .have.been.calledWithExactly('/bmi-calculator/calculate', dependencies.bmiCalculatorController.calculate);
     });
   });
 });

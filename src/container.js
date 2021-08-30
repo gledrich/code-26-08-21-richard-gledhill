@@ -6,8 +6,10 @@ const fs = require('fs');
 const server = require('./server');
 
 const healthController = require('./controllers/health');
+const bmiCalculatorController = require('./controllers/bmiCalculator');
 const controllers = require('./controllers');
-const bmiCalculator = require('./services/bmiCalculator');
+
+const bmiCalculatorService = require('./services/bmiCalculator');
 
 const container = createContainer();
 
@@ -25,13 +27,14 @@ container.register({
 
 // Services
 container.register({
-  bmiCalculator: asFunction(bmiCalculator),
+  bmiCalculatorService: asFunction(bmiCalculatorService),
 });
 
 // Controllers
 container.register({
   controllers: asFunction(controllers),
   healthController: asValue(healthController),
+  bmiCalculatorController: asFunction(bmiCalculatorController),
 });
 
 module.exports = container.cradle;

@@ -1,11 +1,11 @@
 const { expect } = require('chai');
 const fs = require('fs');
-const { bmiCalculator } = require('../../../src/container');
+const { bmiCalculatorService } = require('../../../src/container');
 const { calculateBMIKgMetersSquared, getBMICategory } = require('../../utils/bmi');
 
 const inputData = JSON.parse(fs.readFileSync(`${__dirname}/../../../data/input.json`, { encoding: 'utf8' }));
 
-describe('bmiCalculator', () => {
+describe('bmiCalculatorService', () => {
   const outputFile = `${__dirname}/test-output.json`;
 
   afterEach(async () => {
@@ -19,7 +19,7 @@ describe('bmiCalculator', () => {
       await fs.unlinkSync(outputFile);
     }
 
-    await bmiCalculator.calculate(outputFile);
+    await bmiCalculatorService.calculate(outputFile);
 
     const outputData = fs.readFileSync(outputFile, { encoding: 'utf8' });
 

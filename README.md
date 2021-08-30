@@ -20,12 +20,29 @@ Tests are run in mochajs using the chaijs asserion library
 `npm run test:docker`
 
 ## CI
-Github workflows is being used for CI - see `.github/workflows` and the [Actions](https://github.com/gledrich/code-26-08-21-richard-gledhill/actions) page
+Github workflows is being used for CI - see `.github/workflows` and the [Actions](https://github.com/gledrich/code-26-08-21-richard-gledhill/actions) page.
 
-## Running the app
+The CI stages are:
+* Unit tests (in docker)
+* Integration tests (in docker)
+* Build and deploy to heroku
+
+## Development
+### Running the app
 `npm start`
 
 Head to [localhost:3000](http://localhost:3000)
+
+### Calculating BMI data
+Heading to [bmi-calculator/calculate](http://localhost:3000/bmi-calculator/calculate) will trigger the BMI calculator to process `data/input.json`, write the output to `data/output.json` and return a stream of the computed data
+
+## Production
+### Heroku
+The containerised docker app is deployed to heroku as the last step of the github workflow. 
+Head over to [bmi-calculator-rich/readiness](http://bmi-calculator-rich.herokuapp.com/readiness) to check the app is running
+
+### Calculating BMI data
+Heading to [bmi-calculator/calculate](http://bmi-calculator-rich.herokuapp.com/bmi-calculator/calculate) will trigger the BMI calculator to process `data/input.json`, write the output to `data/output.json` and return a stream of the computed data
 
 ### Input Data
 Input data is sourced from data/input.json
