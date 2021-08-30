@@ -1,4 +1,4 @@
-/* eslint-disable no-restricted-syntax, no-continue */
+/* eslint-disable no-restricted-syntax */
 
 const bmiRanges = {
   Underweight: { max: 18.4, healthRisk: 'Malnutrition Risk' },
@@ -49,6 +49,10 @@ module.exports = ({ fs, logger }) => ({
         logger.debug('Processing new chunk...');
 
         for (let currentIndex = 0; currentIndex < data.length; currentIndex += 1) {
+          if (data[previousIndex] !== '{') {
+            previousIndex += 1;
+          }
+
           if (data[previousIndex] === '{' && data[currentIndex] === '}') {
             try {
               const parsedPerson = JSON.parse(data.slice(previousIndex, currentIndex + 1));
@@ -68,18 +72,13 @@ module.exports = ({ fs, logger }) => ({
               writeStream.write(count === 0 ? updatedPerson : `,\n${updatedPerson}`);
 
               count += 1;
+              previousIndex = currentIndex;
             } catch (err) {
               logger.warn({ err }, 'Failed to parse an item');
             }
-          } else if (data[previousIndex] === '{' && currentIndex === data.length - 1) {
+          } else if (currentIndex === data.length - 1) {
             leftOvers = data.slice(previousIndex, currentIndex + 1);
           }
-
-          if (data[previousIndex] === '{' && data[currentIndex] !== '}') {
-            continue;
-          }
-
-          previousIndex = currentIndex;
         }
       }
 
