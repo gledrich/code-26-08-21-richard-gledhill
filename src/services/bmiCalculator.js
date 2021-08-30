@@ -32,10 +32,10 @@ const getBMICategory = (bmiInKgMetersSquared) => {
 };
 
 module.exports = ({ fs, logger }) => ({
-  calculate: async () => {
+  calculate: async (outputFile = `${__dirname}/../../data/output.json`) => {
     try {
       const readStream = fs.createReadStream(`${__dirname}/../../data/input.json`);
-      const writeStream = fs.createWriteStream(`${__dirname}/../../data/output.json`);
+      const writeStream = fs.createWriteStream(outputFile);
       let leftOvers = '';
       let count = 0;
 
@@ -86,8 +86,12 @@ module.exports = ({ fs, logger }) => ({
       }
 
       writeStream.write(']');
+      writeStream.end();
 
-      logger.info('Successfully processed input file');
+      return await new Promise((resolve) => {
+        logger.info('Successfully processed input file');
+        writeStream.on('finish', () => resolve());
+      });
     } catch (err) {
       logger.error({ err }, 'Unable to process BMI data');
       throw new Error('Unable to process BMI data');
