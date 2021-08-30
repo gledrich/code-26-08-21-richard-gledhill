@@ -3,7 +3,7 @@ on:
     branches:
       - main
 jobs:
-  test:
+  unit:
     runs-on: ubuntu-latest
     name: Tests
     env:
@@ -13,5 +13,13 @@ jobs:
         uses: actions/checkout@v2
       - name: Unit tests
         run: docker-compose -f docker-compose.yaml -f docker-compose.unit.yaml up --build --force-recreate --renew-anon-volumes --abort-on-container-exit --always-recreate-deps
+  integration:
+    runs-on: ubuntu-latest
+    name: Tests
+    env:
+      NODE_ENV: 'test'
+    steps:
+      - name: Checkout current repo
+        uses: actions/checkout@v2
       - name: Integration tests
         run: docker-compose -f docker-compose.yaml -f docker-compose.integration.yaml up --build --force-recreate --renew-anon-volumes --abort-on-container-exit --always-recreate-deps
