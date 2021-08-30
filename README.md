@@ -4,6 +4,8 @@ A program to calculate the Body Mass Index of a person(s) given their height(cm)
 ## Tests
 Tests are run in mochajs using the chaijs asserion library
 ### Unit
+Unit tests can be found in the `src/` folder under `<<MODULE>>.test.js` and run with: 
+
 `npm run test:unit`
 
 **With file watching:**
@@ -14,6 +16,8 @@ Tests are run in mochajs using the chaijs asserion library
 `npm run test:unit:coverage`
 
 ### Integation
+Integration tests can be found in the `test/integration/` folder under `<<MODULE>>.test.js` and run with: 
+
 `npm run test:integration`
 
 ### With Docker
