@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --only=production
+RUN NODE_ENV=$NODE_ENV npm install
 
 COPY . .
 

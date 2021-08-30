@@ -9,7 +9,7 @@
     "test:unit:watch": "npm run test:unit -- --watch",
     "test:unit:coverage": "nyc npm run test:unit",
     "test:integration": "mocha --file ./test/integration/globalTestSetup.js $(find test/integration -name '*.test.js')",
-    "test:docker": "bash test/integration/run.sh",
+    "test:docker": "bash test/run.sh",
     "start": "node src/index"
   },
   "author": "Rich <richgled25@gmail.com>",

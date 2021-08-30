@@ -1,0 +1,4 @@
+version: "3.9"
+services:
+  bmi_calculator:
+    command: [sh, -c, "npm run test:integration"]
