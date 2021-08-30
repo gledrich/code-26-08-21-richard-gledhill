@@ -27,6 +27,8 @@ The CI stages are:
 * Integration tests (in docker)
 * Build in docker and deploy to heroku
 
+![Actions](/readme/actions.png)
+
 ## Development
 ### Running the app
 `npm start`
@@ -34,15 +36,15 @@ The CI stages are:
 Head to [localhost:3000](http://localhost:3000)
 
 ### Calculating BMI data
-Heading to [bmi-calculator/calculate](http://localhost:3000/bmi-calculator/calculate) will trigger the BMI calculator to process `data/input.json`, write the output to `data/output.json` and return a stream of the computed data
+Heading to [bmi-calculator/calculate](http://localhost:3000/bmi-calculator/calculate) will trigger the BMI calculator to process `data/input.json`, write the output to `data/output.json` and return a stream of the computed data.
 
 ## Production
 ### Heroku
 The containerised docker app is deployed to heroku as the last step of the github workflow. 
-Head over to [bmi-calculator-rich/readiness](http://bmi-calculator-rich.herokuapp.com/readiness) to check the app is running
+Head over to [bmi-calculator-rich/readiness](http://bmi-calculator-rich.herokuapp.com/readiness) to check the app is running.
 
 ### Calculating BMI data
-Heading to [bmi-calculator/calculate](http://bmi-calculator-rich.herokuapp.com/bmi-calculator/calculate) will trigger the BMI calculator to process `data/input.json`, write the output to `data/output.json` and return a stream of the computed data
+Heading to [bmi-calculator/calculate](http://bmi-calculator-rich.herokuapp.com/bmi-calculator/calculate) will trigger the BMI calculator to process `data/input.json`, write the output to `data/output.json` and return a stream of the computed data.
 
 ### Input Data
 Input data is sourced from data/input.json
