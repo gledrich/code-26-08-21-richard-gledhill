@@ -30,6 +30,9 @@ Husky is being used for git hooks
 Before pushing, husky will run `npm run test:unit:coverage && npm run test:docker`
 
 ## Running the app
+## Install dependencies
+`npm i`
+## Start the server
 `npm start`
 
 or with a custom port
