@@ -25,7 +25,7 @@ Github workflows is being used for CI - see `.github/workflows` and the [Actions
 The CI stages are:
 * Unit tests (in docker)
 * Integration tests (in docker)
-* Build and deploy to heroku
+* Build in docker and deploy to heroku
 
 ## Development
 ### Running the app
