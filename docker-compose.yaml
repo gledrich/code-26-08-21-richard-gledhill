@@ -5,6 +5,7 @@ services:
       context: .
     environment: 
       PORT: 3000
+      NODE_ENV: test
     ports: 
       - '3000:3000'
     command: [sh, -c, "npm run test:unit && npm run test:integration"]

@@ -12,6 +12,11 @@
     "test:docker": "bash test/run.sh",
     "start": "node src/index"
   },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run test:unit:coverage && npm run test:docker"
+    }
+  },
   "author": "Rich <richgled25@gmail.com>",
   "license": "ISC",
   "devDependencies": {

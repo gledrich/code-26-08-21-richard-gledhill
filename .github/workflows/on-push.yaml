@@ -6,8 +6,6 @@ jobs:
   unit:
     runs-on: ubuntu-latest
     name: Unit
-    env:
-      NODE_ENV: "test"
     steps:
       - name: Checkout current repo
         uses: actions/checkout@v2
@@ -26,12 +24,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Deploy to Heroku
+    needs: [unit, integration]
     env:
       NODE_ENV: "production"
     steps:
       - uses: actions/checkout@v2
       - name: Build
-        run: docker build -t bmi-calculator-rich .
+        run: docker build --build-arg PORT=$PORT --build-arg NODE_ENV=$NODE_ENV -t bmi-calculator-rich .
       - name: Login to Heroku Container registry
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}

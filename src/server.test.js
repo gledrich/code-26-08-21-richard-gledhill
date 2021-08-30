@@ -36,7 +36,36 @@ describe('server', () => {
 
       server.start();
 
-      return expect(dependencies.app.listen).to.have.been.calledWith(3000);
+      return expect(dependencies.app.listen).to.have.been.called;
+    });
+
+    describe('when process.env.PORT is set', () => {
+      const port = '1234';
+      before(() => {
+        process.env.PORT = port;
+      });
+
+      after(() => {
+        process.env.PORT = '';
+      });
+
+      it('listens on process.env.PORT', () => {
+        const { server, dependencies } = setup();
+
+        server.start();
+
+        return expect(dependencies.app.listen).to.have.been.calledWith(port);
+      });
+    });
+
+    describe('when process.env.PORT is not set', () => {
+      it('listens on 3000', () => {
+        const { server, dependencies } = setup();
+
+        server.start();
+
+        return expect(dependencies.app.listen).to.have.been.calledWith(3000);
+      });
     });
 
     it('logs a message', () => {
@@ -46,7 +75,7 @@ describe('server', () => {
 
       server.start();
 
-      return expect(dependencies.logger.info).to.have.been.calledWithExactly('Server running on localhost:3000');
+      return expect(dependencies.logger.info).to.have.been.calledWithExactly(`Server running on port: ${3000}`);
     });
 
     it('initialises the controllers', () => {
