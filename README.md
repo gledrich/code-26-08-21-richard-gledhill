@@ -20,7 +20,7 @@ Tests are run in mochajs using the chaijs asserion library
 `npm run test:docker`
 
 ## CI
-Github workflows is being used for CI - see `.github/workflows`
+Github workflows is being used for CI - see `.github/workflows` and the [Actions](https://github.com/gledrich/code-26-08-21-richard-gledhill/actions) page
 
 ## Running the app
 `npm start`
