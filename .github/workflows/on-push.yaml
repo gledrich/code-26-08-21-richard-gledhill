@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Unit
     env:
-      NODE_ENV: 'test'
+      NODE_ENV: "test"
     steps:
       - name: Checkout current repo
         uses: actions/checkout@v2
@@ -17,9 +17,30 @@ jobs:
     runs-on: ubuntu-latest
     name: Integration
     env:
-      NODE_ENV: 'test'
+      NODE_ENV: "test"
     steps:
       - name: Checkout current repo
         uses: actions/checkout@v2
       - name: Integration tests
         run: docker-compose -f docker-compose.yaml -f docker-compose.integration.yaml up --build --force-recreate --renew-anon-volumes --abort-on-container-exit --always-recreate-deps
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy to Heroku
+    env:
+      NODE_ENV: "production"
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: docker build -t bmi-calculator-rich .
+      - name: Login to Heroku Container registry
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku container:login
+      - name: Build and push
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku container:push -a bmi-calculator-rich web
+      - name: Release
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku container:release -a bmi-calculator-rich web
