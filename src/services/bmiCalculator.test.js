@@ -3,7 +3,7 @@ const { stub } = require('sinon');
 const { Readable } = require('stream');
 const util = require('util');
 const bmiCalculatorServiceFactory = require('./bmiCalculator');
-const { calculateBMIKgMetersSquared, getBMICategory } = require('../../test/utils/bmi');
+const { ranges: bmiRanges, calculateBMIKgMetersSquared, getBMICategory } = require('../../test/utils/bmi');
 
 const inputData = [
   {
@@ -77,6 +77,21 @@ describe('bmiCalculatorService', () => {
       inputData.forEach((item, i) => {
         expect(writeStub.write.args[i + 1][0]).to
           .contain(`"BMI": ${item.WeightKg / (item.HeightCm / 100)}`);
+      });
+    });
+
+    it('appends the Health Risk of each person to the data', async () => {
+      const { bmiCalculatorService, dependencies, inputStream } = setup();
+      const writeStub = { write: stub(), end: stub(), on: stub().yields() };
+
+      dependencies.fs.createReadStream.returns(inputStream);
+      dependencies.fs.createWriteStream.withArgs(`${__dirname}/../../data/output.json`).returns(writeStub);
+
+      await bmiCalculatorService.calculate();
+
+      inputData.forEach((item, i) => {
+        expect(writeStub.write.args[i + 1][0]).to
+          .contain(`"HealthRisk": "${bmiRanges[getBMICategory(calculateBMIKgMetersSquared(item.WeightKg, item.HeightCm))].healthRisk}"`);
       });
     });
 
@@ -177,6 +192,9 @@ describe('bmiCalculatorService', () => {
           BMICategory: getBMICategory(
             calculateBMIKgMetersSquared(item.WeightKg, item.HeightCm),
           ),
+          HealthRisk: bmiRanges[
+            getBMICategory(calculateBMIKgMetersSquared(item.WeightKg, item.HeightCm))
+          ].healthRisk,
         }, null, 2)));
     });
 
@@ -243,6 +261,9 @@ describe('bmiCalculatorService', () => {
             BMICategory: getBMICategory(
               calculateBMIKgMetersSquared(input.WeightKg, input.HeightCm),
             ),
+            HealthRisk: bmiRanges[
+              getBMICategory(calculateBMIKgMetersSquared(input.WeightKg, input.HeightCm))
+            ].healthRisk,
           }, null, 2)));
       });
     });

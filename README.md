@@ -59,7 +59,7 @@ Heading to [bmi-calculator/calculate](http://bmi-calculator-rich.herokuapp.com/b
 Input data is sourced from data/input.json
 
 ### Output Data
-Output data is output to data/output.json
+Output data is written to data/output.json
 
 ### Observations
 #### **BMI in Kg/m**
@@ -88,7 +88,7 @@ BMI of person 5 = 70 / (150 / 100)<sup>2</sup> = 31.1111111111 Kg/m<sup>2</sup>
 
 BMI of person 6 = 82 / (167 / 100)<sup>2</sup> = 29.4022732977 Kg/m<sup>2</sup>
 
-#### **BMI Category**
+#### **BMI Category and Health Risk**
 Summary
 * 2 Normal
 * 1 Overweight

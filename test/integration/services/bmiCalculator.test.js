@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const fs = require('fs');
 const { bmiCalculatorService } = require('../../../src/container');
-const { calculateBMIKgMetersSquared, getBMICategory } = require('../../utils/bmi');
+const { ranges: bmiRanges, calculateBMIKgMetersSquared, getBMICategory } = require('../../utils/bmi');
 
 const inputData = JSON.parse(fs.readFileSync(`${__dirname}/../../../data/input.json`, { encoding: 'utf8' }));
 
@@ -30,6 +30,11 @@ describe('bmiCalculatorService', () => {
       BMICategory: getBMICategory(
         calculateBMIKgMetersSquared(inputData[i].WeightKg, inputData[i].HeightCm),
       ),
+      HealthRisk: bmiRanges[
+        getBMICategory(
+          calculateBMIKgMetersSquared(inputData[i].WeightKg, inputData[i].HeightCm),
+        )
+      ].healthRisk,
     }));
   });
 });

@@ -1,11 +1,11 @@
 module.exports = {
   ranges: {
-    Underweight: { max: 18.4 },
-    Normal: { min: 18.5, max: 24.9 },
-    Overweight: { min: 25, max: 29.9 },
-    'Moderately Obese': { min: 30, max: 34.9 },
-    'Severely Obese': { min: 35, max: 39.9 },
-    'Very Severely Obese': { min: 40 },
+    Underweight: { max: 18.4, healthRisk: 'Malnutrition Risk' },
+    Normal: { min: 18.5, max: 24.9, healthRisk: 'Low Risk' },
+    Overweight: { min: 25, max: 29.9, healthRisk: 'Enhanced Risk' },
+    'Moderately Obese': { min: 30, max: 34.9, healthRisk: 'Medium Risk' },
+    'Severely Obese': { min: 35, max: 39.9, healthRisk: 'High Risk' },
+    'Very Severely Obese': { min: 40, healthRisk: 'Very High Risk' },
   },
   calculateBMIKgMetersSquared: (m, h) => m / ((h / 100) ** 2),
   getBMICategory: (bmiInKgMetersSquared) => {

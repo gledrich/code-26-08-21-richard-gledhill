@@ -1,12 +1,12 @@
 /* eslint-disable no-restricted-syntax, no-continue */
 
 const bmiRanges = {
-  Underweight: { max: 18.4 },
-  Normal: { min: 18.5, max: 24.9 },
-  Overweight: { min: 25, max: 29.9 },
-  'Moderately Obese': { min: 30, max: 34.9 },
-  'Severely Obese': { min: 35, max: 39.9 },
-  'Very Severely Obese': { min: 40 },
+  Underweight: { max: 18.4, healthRisk: 'Malnutrition Risk' },
+  Normal: { min: 18.5, max: 24.9, healthRisk: 'Low Risk' },
+  Overweight: { min: 25, max: 29.9, healthRisk: 'Enhanced Risk' },
+  'Moderately Obese': { min: 30, max: 34.9, healthRisk: 'Medium Risk' },
+  'Severely Obese': { min: 35, max: 39.9, healthRisk: 'High Risk' },
+  'Very Severely Obese': { min: 40, healthRisk: 'Very High Risk' },
 };
 
 const calculateBMI = (m, h) => m / (h / 100);
@@ -64,10 +64,12 @@ module.exports = ({ fs, logger }) => ({
               const bmiInKgMetersSquared = calculateBMIKgMetersSquared(
                 parsedPerson.WeightKg, parsedPerson.HeightCm,
               );
+              const bmiCategory = getBMICategory(bmiInKgMetersSquared);
               const updatedPerson = JSON.stringify({
                 ...parsedPerson,
                 BMI: bmi,
-                BMICategory: getBMICategory(bmiInKgMetersSquared),
+                BMICategory: bmiCategory,
+                HealthRisk: bmiRanges[bmiCategory].healthRisk,
               }, null, 2);
 
               logger.info({ count }, 'Writing to output file...');
