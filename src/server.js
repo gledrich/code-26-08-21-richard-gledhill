@@ -13,6 +13,7 @@ module.exports = ({ app, logger, controllers }) => {
           logger.info(`Server running on port: ${port}`);
         });
       } catch (err) {
+        logger.error({ err }, 'Server failed to start');
         process.exit(1);
       }
 
@@ -29,6 +30,7 @@ module.exports = ({ app, logger, controllers }) => {
           logger.info('Successfully shutdown server');
         });
       } catch (err) {
+        logger.error({ err }, 'Server failed to gracefully shutdown');
         process.exit(1);
       }
     },

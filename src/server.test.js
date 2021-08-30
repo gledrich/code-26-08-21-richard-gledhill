@@ -10,6 +10,7 @@ describe('server', () => {
       },
       logger: {
         info: stub(),
+        error: stub(),
       },
       controllers: {
         init: stub(),
@@ -105,6 +106,17 @@ describe('server', () => {
 
         expect(process.exit).to.have.been.calledWithExactly(1);
       });
+
+      it('logs an error', () => {
+        const { server, dependencies } = setup();
+        const expectedError = new Error('expected');
+
+        dependencies.app.listen.throws(expectedError);
+
+        server.start();
+
+        return expect(dependencies.logger.error).to.have.been.calledWithExactly({ err: expectedError }, 'Server failed to start');
+      });
     });
   });
 
@@ -152,6 +164,20 @@ describe('server', () => {
         server.stop();
 
         return expect(process.exit).to.have.been.calledWithExactly(1);
+      });
+
+      it('logs an error', () => {
+        const { server, dependencies } = setup();
+        const expectedError = new Error('expected');
+
+        dependencies.app.listen.returns({
+          close: stub().throws(expectedError),
+        });
+
+        server.start();
+        server.stop();
+
+        return expect(dependencies.logger.error).to.have.been.calledWithExactly({ err: expectedError }, 'Server failed to gracefully shutdown');
       });
     });
   });
