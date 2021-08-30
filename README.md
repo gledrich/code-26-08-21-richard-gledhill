@@ -1,5 +1,5 @@
 # BMI Calculator
-A program to calculate the Body Mass Index of a person(s) given their height(cm) and weight(Kg)
+A web server that calculates the BMI, BMI Category, and Health Risk of the data in [data/input.json](https://github.com/gledrich/code-26-08-21-richard-gledhill/blob/main/data/input.json). I made it a server for a bit of additional fun but the core logic could easily be wrapped up in a standalone package and adapated to take another file location.
 
 # Development
 ## Tests
