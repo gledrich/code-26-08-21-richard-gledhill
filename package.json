@@ -4,7 +4,6 @@
   "description": "Program to calculate BMI",
   "main": "src/index.js",
   "scripts": {
-    "prepare": "husky install",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "mocha $(find src -name '*.test.js')",
     "test:unit:watch": "npm run test:unit -- --watch",

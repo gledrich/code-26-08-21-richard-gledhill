@@ -34,6 +34,11 @@ The CI stages are:
 ![Actions](/readme/actions.png)
 
 ## Development
+### Hooks
+Husky is being used for git hooks
+#### Pre-Push
+Before pushing, husky will run `npm run test:unit:coverage && npm run test:docker`
+
 ### Running the app
 `npm start`
 
